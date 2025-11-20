@@ -13,6 +13,14 @@ Thank you for considering a contribution. This repository uses English as the de
 - Tests: run available tests if present (e.g., `composer test`). If tests are missing, double-check changes manually.
 - Documentation: update relevant docs when behavior or public API changes.
 
+## Issues
+- Language: default to English; Japanese notes or reproduction steps are welcome as supplementary information.
+- Before filing: search existing issues to avoid duplicates.
+- Bug reports: include summary, reproduction steps, expected vs. actual behavior, and environment info (PHP/Laravel versions, OS, browser if UI-related).
+- Feature requests: describe the goal and primary use cases; optional API/UX sketches are helpful.
+- Labels: use core labels (Bug, Enhancement/Feature, Docs, Question) and apply priority if available (e.g., P0/P1/P2).
+- Security: do **not** report vulnerabilities in public issues; contact maintainers privately (see Security section).
+
 ## Commits and Pull Requests
 - Commits: short, imperative messages (e.g., “Add docs viewer config”).
 - PRs: include purpose, scope, any UI changes (with screenshots if applicable), and test results or manual check notes.
