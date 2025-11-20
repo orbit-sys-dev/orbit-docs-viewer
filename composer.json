@@ -1,6 +1,5 @@
 {
   "name": "orbit-sys-dev/laravel-dev-docs-viewer",
-  "version": "0.1.0",
   "description": "Docs viewer dashboard for Laravel projects (browsing docs directory).",
   "type": "library",
   "license": "MIT",
