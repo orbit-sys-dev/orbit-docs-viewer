@@ -64,14 +64,6 @@ Default routes (prefix and middleware are configurable):
 - `dashboard_url`: Target for “Back to Dev Dashboard”. Set null to hide.
 - `timezone`: Timezone used for date display. Falls back to `config('app.timezone')` when unset.
 
-## Migration notes (when porting from orbit-ops)
-
-- Change controller namespace to `Orbit\DevDocsViewer\Http\Controllers`
-- `view('dev.xxx')` → `view('docs-viewer::dev.xxx')`
-- Drive paths and prefix/middleware from config; override via `.env`
-- Use config `route.name_prefix` for route names
-- Register as a path repo like in this README to refer to the local package during development
-
 ## License
 
 MIT

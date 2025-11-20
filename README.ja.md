@@ -64,14 +64,6 @@ DOCS_VIEWER_HOME_LABEL="トップページへ"
 - `dashboard_url`: 「開発ダッシュボードへ戻る」リンク先。不要なら null。
 - `timezone`: 日付表示のタイムゾーン。未設定時は `config('app.timezone')` を利用。
 
-## 開発メモ（orbit-ops から移植する場合）
-
-- コントローラの namespace を `Orbit\DevDocsViewer\Http\Controllers` に変更
-- `view('dev.xxx')` → `view('docs-viewer::dev.xxx')`
-- パスや prefix/middleware を config 駆動にし、`.env` で差し替え可能に
-- ルート名も config の `route.name_prefix` を利用
-- README のように path リポジトリ登録するとローカル開発中のパッケージを参照できます
-
 ## ライセンス
 
 MIT
