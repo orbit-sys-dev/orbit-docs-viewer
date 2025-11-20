@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docs ビューアー | Laravel ドキュメントプラグイン</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="page">
+        <header class="header">
+            <div class="brand">
+                <span class="brand__dot" aria-hidden="true"></span>
+                <span>orbit docs viewer</span>
+            </div>
+            <nav class="lang-switch" aria-label="Language switch">
+                <a class="active" href="#">日本語</a>
+                <a href="./en/">English</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="hero__text">
+                <div class="chips">
+                    <span class="chip">Laravel 10 / 11 / 12</span>
+                    <span class="chip">PHP 8.2+</span>
+                    <span class="chip">Markdown viewer</span>
+                </div>
+                <h1>Docs ビューアー</h1>
+                <p>`docs/` 配下の資料をブラウザで素早く整理・閲覧できる Laravel プラグインです。orbit-ops の `/dev/docs` 画面をパッケージ化し、`composer require` だけで導入できます。</p>
+                <div class="cta-row">
+                    <a class="btn primary" href="https://packagist.org/packages/orbit-sys-dev/laravel-dev-docs-viewer">Packagist</a>
+                    <a class="btn secondary" href="https://github.com/orbit-sys-dev/laravel-dev-docs-viewer">GitHub</a>
+                    <a class="btn secondary" href="https://github.com/orbit-sys-dev/laravel-dev-docs-viewer/blob/main/README.ja.md">README</a>
+                </div>
+            </div>
+            <div class="hero__media">
+                <img src="../images/top.ja.png" alt="Docs ビューアーの画面例">
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section__header">
+                <h2>特徴</h2>
+            </div>
+            <div class="cards">
+                <article class="card">
+                    <h3>ドキュメント自動一覧</h3>
+                    <p>`docs/` 配下をカテゴリごとに自動スキャンし、設計書・Development などをカード表示。README へのクイックリンクも付属。</p>
+                    <ul class="bullet-list">
+                        <li>Markdown を安全に HTML 化</li>
+                        <li>README 例外パスも指定可能</li>
+                        <li>パスからルートへ自動リンク</li>
+                    </ul>
+                </article>
+                <article class="card">
+                    <h3>環境に合わせて柔軟</h3>
+                    <p>.env でルート prefix、middleware、レイアウト、ダッシュボードへの戻り先などを切替。ロケールも `?lang=` で即変更。</p>
+                    <ul class="bullet-list">
+                        <li>可変 root ディレクトリ</li>
+                        <li>App/Development グループを設定</li>
+                        <li>ロケール既定値を `.env` で</li>
+                    </ul>
+                </article>
+                <article class="card">
+                    <h3>プロダクトに寄り添う UI</h3>
+                    <p>デフォルトの Blade レイアウトを同梱しつつ、`vendor:publish` でビューを配布可能。アプリ共通レイアウトへの置換も容易。</p>
+                    <ul class="bullet-list">
+                        <li>ダーク基調のシンプル UI</li>
+                        <li>コピー/折りたたみなど実用機能</li>
+                        <li>Vite バンドル対応</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section__header">
+                <h2>セットアップ</h2>
+            </div>
+            <ul class="steps">
+                <li class="step">
+                    <div class="step__num">1</div>
+                    <div class="step__body">
+                        <strong>インストール</strong>
+                        <div class="shell">composer require orbit-sys-dev/laravel-dev-docs-viewer</div>
+                    </div>
+                </li>
+                <li class="step">
+                    <div class="step__num">2</div>
+                    <div class="step__body">
+                        <strong>publish</strong>
+                        <div class="shell">php artisan vendor:publish --tag=docs-viewer-config<br>php artisan vendor:publish --tag=docs-viewer-views</div>
+                    </div>
+                </li>
+                <li class="step">
+                    <div class="step__num">3</div>
+                    <div class="step__body">
+                        <strong>.env に最低限の設定</strong>
+                        <div class="shell">DOCS_VIEWER_ROUTE_PREFIX=dev/docs<br>DOCS_VIEWER_LOCALE=ja<br>DOCS_VIEWER_AVAILABLE_LOCALES=ja,en</div>
+                    </div>
+                </li>
+                <li class="step">
+                    <div class="step__num">4</div>
+                    <div class="step__body">
+                        <strong>動作確認</strong>
+                        <div class="shell">php artisan serve<br>https://localhost:8000/dev/docs?lang=ja</div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <div class="section__header">
+                <h2>リソース</h2>
+            </div>
+            <div class="cards">
+                <article class="card">
+                    <h3>ドキュメント</h3>
+                    <p>導入手順と設定例を README で確認できます。</p>
+                    <ul class="bullet-list">
+                        <li><a href="https://github.com/orbit-sys-dev/laravel-dev-docs-viewer/blob/main/README.ja.md">README (JA)</a></li>
+                        <li><a href="https://github.com/orbit-sys-dev/laravel-dev-docs-viewer/blob/main/README.md">README (EN)</a></li>
+                    </ul>
+                </article>
+                <article class="card">
+                    <h3>スクリーンショット</h3>
+                    <p>トップページの UI の参考に利用してください。</p>
+                    <ul class="bullet-list">
+                        <li><a href="../images/top.ja.png">日本語版プレビュー</a></li>
+                        <li><a href="./en/index.html">English version site</a></li>
+                    </ul>
+                </article>
+                <article class="card">
+                    <h3>GitHub Pages 公開メモ</h3>
+                    <p>リポジトリの Settings → Pages で Source を <code>docs/</code> に設定すると、このページを公開できます。</p>
+                    <ul class="bullet-list">
+                        <li>Base URL: <code>/リポジトリ名/</code></li>
+                        <li>ja: <code>/docs/gh-pages/</code></li>
+                        <li>en: <code>/docs/gh-pages/en/</code></li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>MIT License. orbit-sys-dev team.</p>
+        </footer>
+    </main>
+</body>
+</html>

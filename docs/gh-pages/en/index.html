@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docs Viewer | Laravel Docs Plugin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <main class="page">
+        <header class="header">
+            <div class="brand">
+                <span class="brand__dot" aria-hidden="true"></span>
+                <span>orbit docs viewer</span>
+            </div>
+            <nav class="lang-switch" aria-label="Language switch">
+                <a href="../">日本語</a>
+                <a class="active" href="#">English</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="hero__text">
+                <div class="chips">
+                    <span class="chip">Laravel 10 / 11 / 12</span>
+                    <span class="chip">PHP 8.2+</span>
+                    <span class="chip">Markdown viewer</span>
+                </div>
+                <h1>Docs Viewer</h1>
+                <p>A Laravel plugin that turns your `docs/` directory into a fast, organized dashboard. Originally built for the orbit-ops `/dev/docs` screen—now available via a simple `composer require`.</p>
+                <div class="cta-row">
+                    <a class="btn primary" href="https://packagist.org/packages/orbit-sys-dev/laravel-dev-docs-viewer">Packagist</a>
+                    <a class="btn secondary" href="https://github.com/orbit-sys-dev/laravel-dev-docs-viewer">GitHub</a>
+                    <a class="btn secondary" href="https://github.com/orbit-sys-dev/laravel-dev-docs-viewer/blob/main/README.md">README</a>
+                </div>
+            </div>
+            <div class="hero__media">
+                <img src="../../images/top.en.png" alt="Docs Viewer preview">
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section__header">
+                <h2>Highlights</h2>
+            </div>
+            <div class="cards">
+                <article class="card">
+                    <h3>Automatic docs listing</h3>
+                    <p>Scans `docs/` and organizes files by category (App, Development, etc.). Quick jump to README and file view.</p>
+                    <ul class="bullet-list">
+                        <li>Safe markdown rendering</li>
+                        <li>README exception path supported</li>
+                        <li>Path-to-route link rewriting</li>
+                    </ul>
+                </article>
+                <article class="card">
+                    <h3>Configurable for every project</h3>
+                    <p>Tune route prefix, middleware, layout, navigation links, and locale via `.env`. Switch language with <code>?lang=</code>.</p>
+                    <ul class="bullet-list">
+                        <li>Flexible docs root path</li>
+                        <li>App / Development groups via config</li>
+                        <li>Default locale from env</li>
+                    </ul>
+                </article>
+                <article class="card">
+                    <h3>Ready-to-use UI</h3>
+                    <p>Bundled Blade layout with copy buttons and collapsible code blocks. Publish views to match your app style.</p>
+                    <ul class="bullet-list">
+                        <li>Dark, focused UI</li>
+                        <li>Copy & collapse in file view</li>
+                        <li>Vite ready</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section__header">
+                <h2>Getting started</h2>
+            </div>
+            <ul class="steps">
+                <li class="step">
+                    <div class="step__num">1</div>
+                    <div class="step__body">
+                        <strong>Install</strong>
+                        <div class="shell">composer require orbit-sys-dev/laravel-dev-docs-viewer</div>
+                    </div>
+                </li>
+                <li class="step">
+                    <div class="step__num">2</div>
+                    <div class="step__body">
+                        <strong>Publish config/views</strong>
+                        <div class="shell">php artisan vendor:publish --tag=docs-viewer-config<br>php artisan vendor:publish --tag=docs-viewer-views</div>
+                    </div>
+                </li>
+                <li class="step">
+                    <div class="step__num">3</div>
+                    <div class="step__body">
+                        <strong>Set minimal env</strong>
+                        <div class="shell">DOCS_VIEWER_ROUTE_PREFIX=dev/docs<br>DOCS_VIEWER_LOCALE=ja<br>DOCS_VIEWER_AVAILABLE_LOCALES=ja,en</div>
+                    </div>
+                </li>
+                <li class="step">
+                    <div class="step__num">4</div>
+                    <div class="step__body">
+                        <strong>Verify</strong>
+                        <div class="shell">php artisan serve<br>https://localhost:8000/dev/docs?lang=en</div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <div class="section__header">
+                <h2>Resources</h2>
+            </div>
+            <div class="cards">
+                <article class="card">
+                    <h3>Docs</h3>
+                    <p>Full setup and config examples.</p>
+                    <ul class="bullet-list">
+                        <li><a href="https://github.com/orbit-sys-dev/laravel-dev-docs-viewer/blob/main/README.md">README (EN)</a></li>
+                        <li><a href="https://github.com/orbit-sys-dev/laravel-dev-docs-viewer/blob/main/README.ja.md">README (JA)</a></li>
+                    </ul>
+                </article>
+                <article class="card">
+                    <h3>Screenshots</h3>
+                    <p>See the top page layout.</p>
+                    <ul class="bullet-list">
+                        <li><a href="../../images/top.en.png">Preview (EN)</a></li>
+                        <li><a href="../index.html">日本語サイト</a></li>
+                    </ul>
+                </article>
+                <article class="card">
+                    <h3>Publish to GitHub Pages</h3>
+                    <p>In repo Settings → Pages, set Source to <code>docs/</code>. Use the repository base path (e.g. <code>/orbit-docs-viewer/</code>).</p>
+                    <ul class="bullet-list">
+                        <li>ja: <code>/docs/gh-pages/</code></li>
+                        <li>en: <code>/docs/gh-pages/en/</code></li>
+                        <li>Base URL: repository path</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>MIT License. orbit-sys-dev team.</p>
+        </footer>
+    </main>
+</body>
+</html>
