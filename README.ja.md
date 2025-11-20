@@ -1,5 +1,7 @@
 # orbit-docs-viewer (orbit-sys-dev/laravel-dev-docs-viewer)
 
+公開ページ (GitHub Pages): [日本語](https://orbit-sys-dev.github.io/orbit-docs-viewer/gh-pages/) / [英語](https://orbit-sys-dev.github.io/orbit-docs-viewer/gh-pages/en/)
+
 英語版: [README.md](README.md)  
 development 運用ガイド: [docs/guide/development_usage.md](docs/guide/development_usage.md)
 設計書運用ガイド: [docs/guide/app_docs_usage.md](docs/guide/app_docs_usage.md)
