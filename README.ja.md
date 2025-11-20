@@ -10,6 +10,10 @@ development 運用ガイド: [docs/guide/development_usage.md](docs/guide/develo
 
 `docs/` 配下のドキュメントを閲覧するための Laravel 用プラグインです。orbit-ops の `/dev/docs` 画面をパッケージ化し、`composer require` だけで任意のプロジェクトに組み込めます。
 
+## 画面サンプル
+
+![Docs ビューアー サンプル](docs/images/top.png)
+
 ## 導入手順
 
 1. インストール

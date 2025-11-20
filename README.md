@@ -10,6 +10,10 @@ Contributing: [CONTRIBUTING.md](CONTRIBUTING.md) / [CONTRIBUTING.ja.md](CONTRIBU
 
 Laravel plugin for browsing documents under `docs/`. It packages the orbit-ops `/dev/docs` screen so you can drop it into any project with a simple `composer require`.
 
+## UI preview
+
+![Docs viewer sample](docs/images/top.png)
+
 ## Installation
 
 1. Install
