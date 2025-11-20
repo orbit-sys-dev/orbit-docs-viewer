@@ -1,0 +1,32 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Vendors / packages / builds
+/vendor
+/node_modules
+/public/storage
+/storage/*.key
+/storage/app/public
+/storage/framework/*
+/storage/logs/*
+/storage/debugbar/*
+/storage/tmp/
+/bootstrap/cache/*.php
+
+# PHPUnit caches
+/.phpunit.result.cache
+/.phpunit.cache
+
+# IDE / editor
+/.idea
+/.vscode
+/.fleet
+/.phpstorm.meta.php
+/.phpstorm.meta.php/
+/_ide_helper.php
+/_ide_helper_models.php
+
+# OS junk
+/.DS_Store
