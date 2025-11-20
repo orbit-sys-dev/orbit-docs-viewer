@@ -4,6 +4,15 @@ return [
     // モード（将来拡張用）
     'mode' => env('DOCS_VIEWER_MODE', 'laravel'),
 
+    // 表示言語（クエリパラメータが優先されます）
+    'locale' => env('DOCS_VIEWER_LOCALE', 'ja'),
+
+    // サポートする言語（クエリパラメータの判定用）
+    'locales' => array_values(array_filter(array_map('trim', explode(',', env('DOCS_VIEWER_AVAILABLE_LOCALES', 'ja,en'))))),
+
+    // 言語切替に利用するクエリパラメータキー
+    'locale_query_key' => env('DOCS_VIEWER_LOCALE_QUERY', 'lang'),
+
     // docs ルート（base_path からの相対パス）
     'root_dir' => env('DOCS_VIEWER_ROOT_DIR', 'docs'),
 
@@ -13,15 +22,15 @@ return [
     // Development グループごとのパスとラベル
     'development_groups' => [
         'memo' => [
-            'label' => 'Memo',
+            'label' => env('DOCS_VIEWER_DEV_MEMO_LABEL'),
             'path' => env('DOCS_VIEWER_DEV_MEMO_PATH', 'docs/development/memo'),
         ],
         'operation' => [
-            'label' => 'Operation',
+            'label' => env('DOCS_VIEWER_DEV_OPERATION_LABEL'),
             'path' => env('DOCS_VIEWER_DEV_OPERATION_PATH', 'docs/development/operation'),
         ],
         'task' => [
-            'label' => 'Task',
+            'label' => env('DOCS_VIEWER_DEV_TASK_LABEL'),
             'path' => env('DOCS_VIEWER_DEV_TASK_PATH', 'docs/development/task'),
         ],
     ],
@@ -45,11 +54,11 @@ return [
     // リンクラベル・URLのカスタマイズ
     'links' => [
         'dashboard' => [
-            'label' => env('DOCS_VIEWER_DASHBOARD_LABEL', '開発ダッシュボードに戻る'),
+            'label' => env('DOCS_VIEWER_DASHBOARD_LABEL'),
             'url' => env('DOCS_VIEWER_DASHBOARD_URL', '/ops'),
         ],
         'home' => [
-            'label' => env('DOCS_VIEWER_HOME_LABEL', 'トップページへ'),
+            'label' => env('DOCS_VIEWER_HOME_LABEL'),
             'url' => env('DOCS_VIEWER_HOME_URL', '/'),
         ],
     ],

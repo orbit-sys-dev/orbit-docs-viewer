@@ -12,7 +12,7 @@ development 運用ガイド: [docs/guide/development_usage.md](docs/guide/develo
 
 ## 画面サンプル
 
-![Docs ビューアー サンプル](docs/images/top.png)
+![Docs ビューアー サンプル](docs/images/top.ja.png)
 
 ## 導入手順
 
@@ -37,6 +37,9 @@ DOCS_VIEWER_APP_PATH=docs/app
 DOCS_VIEWER_ROUTE_PREFIX=dev/docs
 DOCS_VIEWER_ROUTE_NAME_PREFIX=dev.docs.
 DOCS_VIEWER_MIDDLEWARE=web,auth
+DOCS_VIEWER_LOCALE=ja
+DOCS_VIEWER_AVAILABLE_LOCALES=ja,en
+DOCS_VIEWER_LOCALE_QUERY=lang
 DOCS_VIEWER_LAYOUT=docs-viewer::layouts.docs
 DOCS_VIEWER_DASHBOARD_URL=/ops
 DOCS_VIEWER_DASHBOARD_LABEL="開発ダッシュボードに戻る"
@@ -67,6 +70,7 @@ DOCS_VIEWER_HOME_LABEL="トップページへ"
 - `layout`: レイアウト Blade。デフォルトは同梱の簡易レイアウト。アプリ側レイアウトに寄生したい場合はここを差し替え。
 - `dashboard_url`: 「開発ダッシュボードへ戻る」リンク先。不要なら null。
 - `timezone`: 日付表示のタイムゾーン。未設定時は `config('app.timezone')` を利用。
+- `locale` / `locales` / `locale_query_key`: 言語の初期値と URL パラメータ（デフォルト `lang`）を指定できます。`?lang=en` などで英語／日本語を切り替えられます。
 
 ## ライセンス
 

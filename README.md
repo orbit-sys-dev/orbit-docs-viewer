@@ -12,7 +12,7 @@ Laravel plugin for browsing documents under `docs/`. It packages the orbit-ops `
 
 ## UI preview
 
-![Docs viewer sample](docs/images/top.png)
+![Docs viewer sample](docs/images/top.en.png)
 
 ## Installation
 
@@ -37,6 +37,9 @@ DOCS_VIEWER_APP_PATH=docs/app
 DOCS_VIEWER_ROUTE_PREFIX=dev/docs
 DOCS_VIEWER_ROUTE_NAME_PREFIX=dev.docs.
 DOCS_VIEWER_MIDDLEWARE=web,auth
+DOCS_VIEWER_LOCALE=ja
+DOCS_VIEWER_AVAILABLE_LOCALES=ja,en
+DOCS_VIEWER_LOCALE_QUERY=lang
 DOCS_VIEWER_LAYOUT=docs-viewer::layouts.docs
 DOCS_VIEWER_DASHBOARD_URL=/ops
 DOCS_VIEWER_DASHBOARD_LABEL="Back to Dev Dashboard"
@@ -67,6 +70,7 @@ Default routes (prefix and middleware are configurable):
 - `layout`: Layout Blade. Defaults to the bundled simple layout; override to use your app layout.
 - `dashboard_url`: Target for “Back to Dev Dashboard”. Set null to hide.
 - `timezone`: Timezone used for date display. Falls back to `config('app.timezone')` when unset.
+- `locale` / `locales` / `locale_query_key`: Set default locale and the URL query key (default `lang`). Switch languages with `?lang=en`, etc.
 
 ## License
 

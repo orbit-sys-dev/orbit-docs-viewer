@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="{{ $lang ?? 'ja' }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Docs ファイル詳細</title>
+    <title>{{ trans('docs-viewer::messages.file_page.title', locale: $lang ?? 'ja') }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.ts'])
@@ -168,6 +168,7 @@
 </head>
 <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
     @php
+        $locale = $lang ?? 'ja';
         $sizeLabel = $sizeBytes < 1024
             ? $sizeBytes.' bytes'
             : number_format($sizeBytes / 1024, 2).' KB';
@@ -179,15 +180,15 @@
         <header class="flex flex-col gap-6 rounded-3xl border border-white/10 bg-slate-900/80 p-8 shadow-2xl shadow-black/30 md:flex-row md:items-center md:justify-between">
             <div class="space-y-3">
                 <p class="text-xs uppercase tracking-[0.45em] text-slate-400">docs viewer</p>
-                <h1 class="text-3xl font-semibold text-white">Docs ファイル詳細</h1>
-                <p class="text-sm text-slate-300">選択したファイルのメタ情報と Markdown / Raw 表示を確認できます。</p>
+                <h1 class="text-3xl font-semibold text-white">{{ trans('docs-viewer::messages.file_page.heading', locale: $locale) }}</h1>
+                <p class="text-sm text-slate-300">{{ trans('docs-viewer::messages.file_page.description', locale: $locale) }}</p>
             </div>
             <div class="flex flex-wrap gap-3">
                 <a
-                    href="{{ route($routeNames['viewer']) }}"
+                    href="{{ route($routeNames['viewer'], $langQuery) }}"
                     class="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/60"
                 >
-                    一覧に戻る
+                    {{ trans('docs-viewer::messages.file_page.back_to_list', locale: $locale) }}
                 </a>
                 @if (! empty($links['dashboard']))
                     <a
@@ -209,13 +210,13 @@
         </header>
 
         <section class="rounded-3xl border border-white/5 bg-slate-900/50 p-8 shadow-lg shadow-black/20">
-            <h2 class="text-xl font-semibold text-white">ファイル情報</h2>
+            <h2 class="text-xl font-semibold text-white">{{ trans('docs-viewer::messages.file_page.file_info', locale: $locale) }}</h2>
             <dl class="mt-6 grid gap-6 text-sm text-slate-200 md:grid-cols-2">
                 <div class="space-y-1">
-                    <dt class="text-xs uppercase tracking-[0.35em] text-slate-400">相対パス</dt>
+                    <dt class="text-xs uppercase tracking-[0.35em] text-slate-400">{{ trans('docs-viewer::messages.file_page.relative_path', locale: $locale) }}</dt>
                     <dd class="flex items-start gap-3 text-base text-white">
                         <span class="font-mono break-all">{{ $relativePath }}</span>
-                        <button type="button" class="docs-copy" data-copy-text="{{ $relativePath }}" aria-label="相対パスをコピー">
+                        <button type="button" class="docs-copy" data-copy-text="{{ $relativePath }}" aria-label="{{ trans('docs-viewer::messages.file_page.copy.relative_path', locale: $locale) }}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -224,10 +225,10 @@
                     </dd>
                 </div>
                 <div class="space-y-1">
-                    <dt class="text-xs uppercase tracking-[0.35em] text-slate-400">ファイル名</dt>
+                    <dt class="text-xs uppercase tracking-[0.35em] text-slate-400">{{ trans('docs-viewer::messages.file_page.file_name', locale: $locale) }}</dt>
                     <dd class="flex items-center gap-3 text-lg font-semibold text-white">
                         <span>{{ $fileName }}</span>
-                        <button type="button" class="docs-copy" data-copy-text="{{ $fileName }}" aria-label="ファイル名をコピー">
+                        <button type="button" class="docs-copy" data-copy-text="{{ $fileName }}" aria-label="{{ trans('docs-viewer::messages.file_page.copy.file_name', locale: $locale) }}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -236,13 +237,13 @@
                     </dd>
                 </div>
                 <div class="space-y-1">
-                    <dt class="text-xs uppercase tracking-[0.35em] text-slate-400">サイズ</dt>
+                    <dt class="text-xs uppercase tracking-[0.35em] text-slate-400">{{ trans('docs-viewer::messages.file_page.size', locale: $locale) }}</dt>
                     <dd class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-medium">
                         {{ $sizeLabel }} <span class="text-white/60">({{ number_format($sizeBytes) }} bytes)</span>
                     </dd>
                 </div>
                 <div class="space-y-1">
-                    <dt class="text-xs uppercase tracking-[0.35em] text-slate-400">最終更新</dt>
+                    <dt class="text-xs uppercase tracking-[0.35em] text-slate-400">{{ trans('docs-viewer::messages.file_page.updated_at', locale: $locale) }}</dt>
                     <dd class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 font-medium">{{ $lastUpdated }}</dd>
                 </div>
             </dl>
@@ -250,22 +251,22 @@
 
         <section class="overflow-hidden rounded-3xl border border-white/5 bg-slate-900/60 shadow-xl shadow-black/30">
             <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/5 px-6 py-4">
-                <p class="text-sm font-semibold uppercase tracking-[0.35em] text-slate-400">コンテンツ</p>
-                <div class="flex items-center gap-3" role="group" aria-label="表示モード切替">
+                <p class="text-sm font-semibold uppercase tracking-[0.35em] text-slate-400">{{ trans('docs-viewer::messages.file_page.sections.content', locale: $locale) }}</p>
+                <div class="flex items-center gap-3" role="group" aria-label="{{ trans('docs-viewer::messages.file_page.sections.content', locale: $locale) }}">
                     <div class="flex gap-3">
                         <button type="button" class="docs-toggle" data-docs-content-toggle="markdown" data-active="true">
-                            Markdown
+                            {{ trans('docs-viewer::messages.file_page.sections.preview', locale: $locale) }}
                         </button>
                         <button type="button" class="docs-toggle" data-docs-content-toggle="raw" data-active="false">
-                            Raw
+                            {{ trans('docs-viewer::messages.file_page.sections.raw', locale: $locale) }}
                         </button>
                     </div>
                     <button
                         type="button"
                         class="docs-copy"
                         data-docs-copy-content="visible"
-                        aria-label="表示中のコンテンツをコピー"
-                        title="表示中のコンテンツをコピー"
+                        aria-label="{{ trans('docs-viewer::messages.file_page.copy.content', locale: $locale) }}"
+                        title="{{ trans('docs-viewer::messages.file_page.copy.content', locale: $locale) }}"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -288,6 +289,11 @@
             const panels = document.querySelectorAll('[data-docs-content]');
             const copyContentButton = document.querySelector('[data-docs-copy-content="visible"]');
             const collapseThreshold = 10;
+            const i18n = {
+                codeBlockTitle: @json(trans('docs-viewer::messages.file_page.code_block_title', ['index' => ':index', 'lines' => ':lines'], $locale)),
+                expand: @json(trans('docs-viewer::messages.file_page.expand', locale: $locale)),
+                collapse: @json(trans('docs-viewer::messages.file_page.collapse', locale: $locale)),
+            };
             let currentMode = 'markdown';
 
             const applyMode = (mode) => {
@@ -331,12 +337,16 @@
                     header.className = 'docs-code-block__header';
 
                     const title = document.createElement('span');
-                    title.textContent = `コードブロック #${index + 1}（${lineCount}行）`;
+                    title.textContent = (i18n.codeBlockTitle || 'Code block #:index (:lines lines)')
+                        .replace(':index', index + 1)
+                        .replace(':lines', lineCount);
 
                     const toggleButton = document.createElement('button');
                     toggleButton.type = 'button';
                     toggleButton.className = 'docs-code-block__toggle';
-                    toggleButton.textContent = lineCount >= collapseThreshold ? '展開' : '折りたたむ';
+                    toggleButton.textContent = lineCount >= collapseThreshold
+                        ? (i18n.expand || 'Expand')
+                        : (i18n.collapse || 'Collapse');
 
                     const body = document.createElement('div');
                     body.className = 'docs-code-block__body';
@@ -352,7 +362,9 @@
 
                     const setCollapsed = (shouldCollapse) => {
                         wrapper.classList.toggle('collapsed', shouldCollapse);
-                        toggleButton.textContent = shouldCollapse ? '展開' : '折りたたむ';
+                        toggleButton.textContent = shouldCollapse
+                            ? (i18n.expand || 'Expand')
+                            : (i18n.collapse || 'Collapse');
                     };
 
                     setCollapsed(lineCount >= collapseThreshold);

@@ -2,6 +2,7 @@
 
 namespace Orbit\DevDocsViewer\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
@@ -11,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DocsViewerController extends Controller
 {
+    private string $locale = 'ja';
     private const APP_SUBGROUP_TEMPLATES = [
         'services' => [
             'label' => 'Services',
@@ -29,8 +31,12 @@ class DocsViewerController extends Controller
     /**
      * Docs ビューアートップ
      */
-    public function __invoke(): View
+    public function __invoke(Request $request): View
     {
+        $this->locale = $this->resolveLocale($request);
+        $langQuery = $this->langQuery();
+        $t = $this->translations($this->locale);
+
         $rootRelative = $this->rootRelative();
         $rootPrefix = $this->rootPrefix();
         $docsRoot = base_path($rootRelative);
@@ -38,12 +44,12 @@ class DocsViewerController extends Controller
         $appDocsConfig = $this->getAppDocsConfig();
 
         $defaultCategories = [
-            'app' => '設計書',
-            'dashboards' => 'Dashboards',
-            'workflow' => 'Workflow',
-            'guide' => 'Guide',
+            'app' => $t['viewer']['categories']['app'],
+            'dashboards' => $t['viewer']['categories']['dashboards'],
+            'workflow' => $t['viewer']['categories']['workflow'],
+            'guide' => $t['viewer']['categories']['guide'],
         ];
-        $developmentLabel = 'Development';
+        $developmentLabel = $t['viewer']['categories']['development'];
 
         $existingDirectories = collect(File::isDirectory($docsRoot) ? File::directories($docsRoot) : [])
             ->map(static fn (string $path) => basename($path))
@@ -149,6 +155,9 @@ class DocsViewerController extends Controller
         }
 
         return view('docs-viewer::dev.docs-viewer', [
+            'lang' => $this->locale,
+            'langQuery' => $langQuery,
+            't' => $t,
             'groups' => $groups,
             'totalCount' => $totalCount,
             'developmentGroup' => $developmentGroup,
@@ -160,8 +169,12 @@ class DocsViewerController extends Controller
         ]);
     }
 
-    public function developmentGroup(string $group): View
+    public function developmentGroup(Request $request, string $group): View
     {
+        $this->locale = $this->resolveLocale($request);
+        $langQuery = $this->langQuery();
+        $t = $this->translations($this->locale);
+
         $groupKey = strtolower($group);
 
         $developmentGroups = $this->developmentGroups();
@@ -195,6 +208,9 @@ class DocsViewerController extends Controller
             ->all();
 
         return view('docs-viewer::dev.docs-development-group', [
+            'lang' => $this->locale,
+            'langQuery' => $langQuery,
+            't' => $t,
             'groupKey' => $groupKey,
             'groupLabel' => $groupConfig['label'],
             'files' => $files,
@@ -235,7 +251,7 @@ class DocsViewerController extends Controller
             $subGroups[$folder] = [
                 'label' => $config['label'],
                 'files' => $items,
-                'route' => route($this->routeName('development.group'), ['group' => $folder]),
+                'route' => route($this->routeName('development.group'), array_merge($this->langQuery(), ['group' => $folder])),
             ];
         }
 
@@ -267,7 +283,7 @@ class DocsViewerController extends Controller
             $routePath = isset($config['readme']) ? $prefix . $config['readme'] : null;
 
             $route = $routePath !== null
-                ? route($this->routeName('viewer.file'), ['path' => $routePath])
+                ? route($this->routeName('viewer.file'), array_merge($this->langQuery(), ['path' => $routePath]))
                 : null;
 
             $subGroups[$key] = [
@@ -304,7 +320,7 @@ class DocsViewerController extends Controller
 
         if ($others !== []) {
             $subGroups['others'] = [
-                'label' => 'Others',
+                'label' => $this->trans('viewer.categories.others'),
                 'files' => $others,
                 'preview' => $this->buildPreviewFiles($others),
                 'route' => null,
@@ -314,8 +330,12 @@ class DocsViewerController extends Controller
         return $subGroups;
     }
 
-    public function app(): View
+    public function app(Request $request): View
     {
+        $this->locale = $this->resolveLocale($request);
+        $langQuery = $this->langQuery();
+        $t = $this->translations($this->locale);
+
         $appDocsConfig = $this->getAppDocsConfig();
 
         if (! $appDocsConfig['exists']) {
@@ -340,6 +360,9 @@ class DocsViewerController extends Controller
             ->sum(static fn (array $group) => count($group['files']));
 
         return view('docs-viewer::dev.docs-app', [
+            'lang' => $this->locale,
+            'langQuery' => $langQuery,
+            't' => $t,
             'subGroups' => $subGroups,
             'totalCount' => $totalCount,
             'routeNames' => $this->routeNames(),
@@ -349,8 +372,12 @@ class DocsViewerController extends Controller
         ]);
     }
 
-    public function development(): View
+    public function development(Request $request): View
     {
+        $this->locale = $this->resolveLocale($request);
+        $langQuery = $this->langQuery();
+        $t = $this->translations($this->locale);
+
         $developmentGroups = $this->developmentGroups();
         $rootPrefix = $this->rootPrefix();
 
@@ -365,7 +392,7 @@ class DocsViewerController extends Controller
                     'label' => $config['label'],
                     'files' => [],
                     'preview' => ['files' => [], 'extra_count' => 0],
-                    'route' => route($this->routeName('development.group'), ['group' => $folder]),
+                    'route' => route($this->routeName('development.group'), array_merge($langQuery, ['group' => $folder])),
                 ];
 
                 continue;
@@ -385,7 +412,7 @@ class DocsViewerController extends Controller
                 'label' => $config['label'],
                 'files' => $files,
                 'preview' => $this->buildPreviewFiles($files),
-                'route' => route($this->routeName('development.group'), ['group' => $folder]),
+                'route' => route($this->routeName('development.group'), array_merge($langQuery, ['group' => $folder])),
             ];
         }
 
@@ -393,6 +420,9 @@ class DocsViewerController extends Controller
             ->sum(static fn (array $group) => count($group['files']));
 
         return view('docs-viewer::dev.docs-development', [
+            'lang' => $this->locale,
+            'langQuery' => $langQuery,
+            't' => $t,
             'subGroups' => $subGroups,
             'totalCount' => $totalCount,
             'routeNames' => $this->routeNames(),
@@ -481,7 +511,10 @@ class DocsViewerController extends Controller
         $groups = [];
 
         foreach ($configured as $key => $config) {
-            $label = $config['label'] ?? Str::headline($key);
+            $label = $config['label'] ?? null;
+            $label = $label !== null && $label !== ''
+                ? $label
+                : $this->trans('development_groups.' . $key, [], Str::headline($key));
             $path = $this->normalizePathWithinRoot(
                 $config['path'] ?? '',
                 $root,
@@ -565,19 +598,71 @@ class DocsViewerController extends Controller
     }
 
     /**
+     * @return array<string, mixed>
+     */
+    private function translations(string $locale): array
+    {
+        return trans('docs-viewer::messages', [], $locale);
+    }
+
+    private function trans(string $key, array $replace = [], ?string $default = null): string
+    {
+        $fullKey = 'docs-viewer::messages.' . $key;
+        $value = trans($fullKey, $replace, $this->locale);
+
+        if ($value === $fullKey) {
+            return $default ?? $value;
+        }
+
+        return $value;
+    }
+
+    private function resolveLocale(Request $request): string
+    {
+        $queryKey = config('docs_viewer.locale_query_key', 'lang');
+        $available = config('docs_viewer.locales', ['ja', 'en']);
+        $available = array_values(array_filter(array_map(static fn ($v) => is_string($v) ? strtolower($v) : null, $available)));
+
+        $requested = $request->query($queryKey);
+
+        if (is_string($requested)) {
+            $candidate = strtolower($requested);
+
+            if (in_array($candidate, $available, true)) {
+                return $candidate;
+            }
+        }
+
+        $default = strtolower((string) config('docs_viewer.locale', 'ja'));
+
+        if ($default !== '' && in_array($default, $available, true)) {
+            return $default;
+        }
+
+        return $available[0] ?? 'ja';
+    }
+
+    private function langQuery(): array
+    {
+        $queryKey = config('docs_viewer.locale_query_key', 'lang');
+
+        return [$queryKey => $this->locale];
+    }
+
+    /**
      * @return array<string, array{label: string, url: string} | null>
      */
     private function navigationLinks(): array
     {
         $dashboardUrl = config('docs_viewer.links.dashboard.url', config('docs_viewer.dashboard_url'));
-        $dashboardLabel = config('docs_viewer.links.dashboard.label', '開発ダッシュボードに戻る');
+        $dashboardLabel = config('docs_viewer.links.dashboard.label');
 
         $homeUrl = config('docs_viewer.links.home.url', '/');
-        $homeLabel = config('docs_viewer.links.home.label', 'トップページへ');
+        $homeLabel = config('docs_viewer.links.home.label');
 
         $links = [
-            'dashboard' => $this->buildLink($dashboardUrl, $dashboardLabel),
-            'home' => $this->buildLink($homeUrl, $homeLabel),
+            'dashboard' => $this->buildLink($dashboardUrl, $dashboardLabel ?? $this->trans('nav.dashboard')),
+            'home' => $this->buildLink($homeUrl, $homeLabel ?? $this->trans('nav.home')),
         ];
 
         return $links;
