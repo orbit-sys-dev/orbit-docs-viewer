@@ -1,8 +1,12 @@
 # orbit-docs-viewer (orbit-sys-dev/laravel-dev-docs-viewer)
 
-Read in Japanese: [README_JA.md](README_JA.md)  
+Read in Japanese: [README.ja.md](README.ja.md)  
 Development docs usage (JA): [docs/guide/development_usage.md](docs/guide/development_usage.md)
 App docs usage (JA): [docs/guide/app_docs_usage.md](docs/guide/app_docs_usage.md)
+
+License: [MIT](LICENSE) / [MIT (JA)](LICENSE.ja.md)
+
+Contributing: [CONTRIBUTING.md](CONTRIBUTING.md) / [CONTRIBUTING.ja.md](CONTRIBUTING.ja.md)
 
 Laravel plugin for browsing documents under `docs/`. It packages the orbit-ops `/dev/docs` screen so you can drop it into any project with a simple `composer require`.
 

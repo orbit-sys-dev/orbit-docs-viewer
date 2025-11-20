@@ -4,6 +4,10 @@
 development 運用ガイド: [docs/guide/development_usage.md](docs/guide/development_usage.md)
 設計書運用ガイド: [docs/guide/app_docs_usage.md](docs/guide/app_docs_usage.md)
 
+ライセンス: [MIT](LICENSE) / [MIT 日本語版](LICENSE.ja.md)
+
+コントリビューション: [CONTRIBUTING.md](CONTRIBUTING.md) / [CONTRIBUTING.ja.md](CONTRIBUTING.ja.md)
+
 `docs/` 配下のドキュメントを閲覧するための Laravel 用プラグインです。orbit-ops の `/dev/docs` 画面をパッケージ化し、`composer require` だけで任意のプロジェクトに組み込めます。
 
 ## 導入手順
