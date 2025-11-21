@@ -289,8 +289,15 @@
             const panels = document.querySelectorAll('[data-docs-content]');
             const copyContentButton = document.querySelector('[data-docs-copy-content="visible"]');
             const collapseThreshold = 10;
+            @php
+                $codeBlockTitle = trans(
+                    key: 'docs-viewer::messages.file_page.code_block_title',
+                    replace: ['index' => ':index', 'lines' => ':lines'],
+                    locale: $locale,
+                );
+            @endphp
             const i18n = {
-                codeBlockTitle: @json(trans('docs-viewer::messages.file_page.code_block_title', ['index' => ':index', 'lines' => ':lines'], $locale)),
+                codeBlockTitle: @json($codeBlockTitle),
                 expand: @json(trans('docs-viewer::messages.file_page.expand', locale: $locale)),
                 collapse: @json(trans('docs-viewer::messages.file_page.collapse', locale: $locale)),
             };
